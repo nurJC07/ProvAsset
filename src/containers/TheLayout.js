@@ -6,11 +6,12 @@ import {
   TheHeader
 } from './index'
 
+
 const TheLayout = () => {
 
   return (
     <div className="c-app c-default-layout">
-      <TheSidebar/>
+      <TheSidebar style={{backgroundColor:'rgb(35, 35, 43)'}}/>
       <div className="c-wrapper">
         <TheHeader/>
         <div className="c-body">

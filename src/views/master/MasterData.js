@@ -13,7 +13,13 @@ import {
   CForm,
   CFormGroup,
   CFormText,
-  CCallout
+  CCallout,
+  CTabContent,
+  CTabPane,
+  CTabs,
+  CNav,
+  CNavItem,
+  CNavLink
 } from '@coreui/react';
 import { Card, CardBody, Col, Row, CardHeader, Jumbotron } from 'reactstrap';
 import CIcon from '@coreui/icons-react';
@@ -35,6 +41,7 @@ const options = [
 ]
 
 const Dashboard = () => {
+    const [active, setActive] = useState(1)
 
   // set value for default selection
   const [selectedValue, setSelectedValue] = useState("Gudang A");
@@ -71,6 +78,17 @@ const Dashboard = () => {
           )
       }
   }
+//   const handleInsertButtonClick = (onClick) => {
+//     // Custom your onClick event here,
+//     // it's not necessary to implement this function if you have no any process before onClick
+//     console.log('This is my custom function for InserButton click event');
+//     onClick();
+//   }
+  const customBtnGroup = () => {
+    return (
+      <button style={ { color: 'red' } } >Scanner</button>
+    );
+  }
     var options = {
       sizePerPageList: [
         {text: 'lihat 5', value: 5},
@@ -80,6 +98,8 @@ const Dashboard = () => {
       sizePerPage: 10,
       sortName: 'id',
       // borderless : true,
+      searchPosition: 'left',
+      btnGroup: customBtnGroup,
       noDataText: 'No data(s) found. Please try again by using another keyword.'
     }
   
@@ -137,33 +157,35 @@ const Dashboard = () => {
     <div>
       <CRow>
         <CCol>
-        <p style={{fontSize:"20px", fontWeight:"bold"}}>{selectedValue}</p>
+        <p style={{fontSize:"20px", fontWeight:"bold"}}>Master Data</p>
         </CCol>
-        <CCol md="4" >
-        <CForm style={{ marginLeft:"auto", borderRadius: '8px'}}>
-        <Select
-        isClearable
-        isSearchable
-        defaultValue={options[0]}
-        value={options.find(obj => obj.value === selectedValue)} // set selected value
-        options={options} // set list of the data
-        onChange={handleChange} // assign onChange function
-
-        />
-         </CForm>
-        </CCol>
-
-       
-
-        
       </CRow>
-      <WidgetsDropdown dataInBound={inBound} dataOutBound={outBound} dataTotal={total} />
-      <Card>
+      <CTabs activeTab="home">
+      <CNav variant="pills" className="flex-sm-row mb-2" style={{backgroundColor:"#fff"}}>
+        <CNavLink className="flex-sm-fill text-sm-center" style={{borderRradius: "8px 0px 0px 8pxx"}} data-tab="home">RFID</CNavLink>
+        <CNavLink className="flex-sm-fill text-sm-center" style={{borderRradius: "8px"}} data-tab="profile">SCANNER</CNavLink>
+       </CNav>
+
+      <CTabContent>
+        <CTabPane data-tab="home">
+        <Card>
         <CardBody>
         {itemList()}
         </CardBody>
       </Card>
     
+        </CTabPane>
+        <CTabPane data-tab="profile">
+        <Card>
+        <CardBody>
+        {itemList()}
+        </CardBody>
+      </Card>
+    
+        </CTabPane>
+      </CTabContent>
+    </CTabs>
+     
     </div>
   )
 }

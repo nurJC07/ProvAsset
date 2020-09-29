@@ -17,16 +17,31 @@ import CIcon from '@coreui/icons-react'
 // sidebar nav config
 import navigation from './_nav'
 
-const TheSidebar = () => {
+const TheSidebar = (props) => {
   const dispatch = useDispatch()
   const show = useSelector(state => state.sidebarShow)
+
+  // const renderElements = (item) => {  
+  //   let active = props.location.pathname === item.link ? "active": "";
+
+  //   return (
+  //     <div key={item.id} >
+  //       <Link
+  //         to={item.link}
+  //         className={item.type +" " + active} 
+  //       >                     
+  //         {item.name}
+  //       </Link>
+  //     </div>
+  //   )
+  // };
 
   return (
     <CSidebar
       show={show}
       onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
     >
-      <CSidebarBrand className="d-md-down-none" to="/">
+      <CSidebarBrand className="d-md-down-none" style={{flex:'0 0 104px'}} to="/">
         <CIcon
           className="c-sidebar-brand-full"
           name="logo-negative"
@@ -38,8 +53,7 @@ const TheSidebar = () => {
           height={35}
         />
       </CSidebarBrand>
-      <CSidebarNav>
-
+      <CSidebarNav style={{backgroundColor:'#23232B'}}>
         <CCreateElement
           items={navigation}
           components={{
@@ -50,7 +64,7 @@ const TheSidebar = () => {
           }}
         />
       </CSidebarNav>
-      <CSidebarMinimizer className="c-d-md-down-none"/>
+      <CSidebarMinimizer className="c-d-md-down-none" />
     </CSidebar>
   )
 }
